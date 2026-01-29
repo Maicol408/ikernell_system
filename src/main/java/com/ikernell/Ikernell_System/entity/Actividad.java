@@ -1,0 +1,47 @@
+package com.ikernell.Ikernell_System.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "actividades")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Actividad {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String nombre;
+
+    @Column(length = 500)
+    private String descripcion;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private EstadoActividad estado;
+
+    @Column(name = "fecha_inicio")
+    private LocalDate fechaInicio;
+
+    @Column(name = "fecha_fin")
+    private LocalDate fechaFin;
+
+    @ManyToOne
+    @JoinColumn(name = "etapa_id", nullable = false)
+    private Etapa etapa;
+
+    @ManyToOne
+    @JoinColumn(name = "desarrollador_id", nullable = false)
+    private Usuario desarrollador;
+
+    @Column(nullable = false)
+    private Boolean activo = true;
+}
