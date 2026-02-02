@@ -2,8 +2,8 @@ package com.ikernell.Ikernell_System.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
@@ -48,6 +48,28 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Rol rol;
+
+    /* ================= RELACIONES ================= */
+
+    // Proyectos donde es líder
+    @OneToMany(mappedBy = "liderProyecto")
+    private List<Proyecto> proyectosLiderados;
+
+    // Proyectos donde participa como desarrollador
+    @ManyToMany(mappedBy = "desarrolladores")
+    private List<Proyecto> proyectosAsignados;
+
+    // Actividades asignadas
+    @OneToMany(mappedBy = "desarrollador")
+    private List<Actividad> actividades;
+
+    // Interrupciones registradas
+    @OneToMany(mappedBy = "registradoPor")
+    private List<Interrupcion> interrupcionesRegistradas;
+
+    // Errores reportados (si decides usar la entidad Error)
+    @OneToMany(mappedBy = "reportadoPor")
+    private List<Error1> erroresReportados;
 
     @Column(nullable = false)
     private Boolean activo = true;

@@ -2,50 +2,43 @@ package com.ikernell.Ikernell_System.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "interrupciones")
+@Table(name = "errores")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Interrupcion {
+public class Error1 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String motivo;
+    @Column(nullable = false, length = 150)
+    private String titulo;
 
-    @Column(length = 500)
+    @Column(nullable = false, length = 500)
     private String descripcion;
 
-    @Column(name = "fecha_inicio", nullable = false)
-    private LocalDateTime fechaInicio;
-
-    @Column(name = "fecha_fin")
-    private LocalDateTime fechaFin;
+    @Column(nullable = false)
+    private LocalDateTime fecha;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private EstadoInterrupcion estado;
+    private EstadoError estado;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-
-
+    // 🔗 Relación con Actividad
     @ManyToOne
     @JoinColumn(name = "actividad_id", nullable = false)
     private Actividad actividad;
 
+    // 👤 Usuario que reporta el error
     @ManyToOne
-    @JoinColumn(name = "registrado_por", nullable = false)
-    private Usuario registradoPor;
+    @JoinColumn(name = "reportado_por", nullable = false)
+    private Usuario reportadoPor;
 
     @Column(nullable = false)
     private Boolean activo = true;

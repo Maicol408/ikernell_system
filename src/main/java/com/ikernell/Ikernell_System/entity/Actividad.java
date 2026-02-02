@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "actividades")
@@ -33,6 +34,12 @@ public class Actividad {
 
     @Column(name = "fecha_fin")
     private LocalDate fechaFin;
+
+    @Column(name = "fecha_creacion")
+    private LocalDate fechaCreacion;
+
+    @OneToMany(mappedBy = "actividad", cascade = CascadeType.ALL)
+    private List<Error1> errores;
 
     @ManyToOne
     @JoinColumn(name = "etapa_id", nullable = false)

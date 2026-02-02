@@ -3,6 +3,7 @@ package com.ikernell.Ikernell_System.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -27,6 +28,9 @@ public class Etapa {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private EstadoEtapa estado;
+
+    @Column(name = "fecha_creacion")
+    private LocalDate fechaCreacion;
 
     @ManyToOne
     @JoinColumn(name = "proyecto_id", nullable = false)

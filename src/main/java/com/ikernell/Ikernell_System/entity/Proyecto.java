@@ -35,6 +35,14 @@ public class Proyecto {
     @Column(nullable = false)
     private EstadoProyecto estado;
 
+    @Column(name = "fecha_creacion")
+    private LocalDate fechaCreacion;
+
+
+    @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL)
+    private List<Etapa> etapas;
+
+
     @ManyToOne
     @JoinColumn(name = "lider_id", nullable = false)
     private Usuario liderProyecto;
