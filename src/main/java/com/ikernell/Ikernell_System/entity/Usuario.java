@@ -27,7 +27,7 @@ public class Usuario {
     @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, length = 20)
     private String identificacion;
 
     @Column(nullable = false)
@@ -52,8 +52,10 @@ public class Usuario {
     /* ================= RELACIONES ================= */
 
     // Proyectos donde es líder
-    @OneToMany(mappedBy = "liderProyecto")
+    @OneToMany(mappedBy = "liderProyecto", fetch = FetchType.LAZY)
     private List<Proyecto> proyectosLiderados;
+
+
 
     // Proyectos donde participa como desarrollador
     @ManyToMany(mappedBy = "desarrolladores")
@@ -69,7 +71,7 @@ public class Usuario {
 
     // Errores reportados (si decides usar la entidad Error)
     @OneToMany(mappedBy = "reportadoPor")
-    private List<Error1> erroresReportados;
+    private List<ErrorPoryecto> erroresReportados;
 
     @Column(nullable = false)
     private Boolean activo = true;

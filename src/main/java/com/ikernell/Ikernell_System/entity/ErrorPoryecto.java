@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Error1 {
+public class ErrorPoryecto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
