@@ -1,10 +1,10 @@
 package com.ikernell.Ikernell_System.util;
 
 import com.ikernell.Ikernell_System.dto.*;
-import com.ikernell.Ikernell_System.dto.create.ActividadCreateDTO;
-import com.ikernell.Ikernell_System.dto.create.EtapaCreateDTO;
-import com.ikernell.Ikernell_System.dto.create.ProyectoCreateDTO;
+import com.ikernell.Ikernell_System.dto.create.*;
 import com.ikernell.Ikernell_System.entity.*;
+
+import java.time.LocalDateTime;
 
 public class MapperUtil {
 
@@ -95,4 +95,115 @@ public class MapperUtil {
         return dto;
     }
 
+    // ================= CHAT =================
+    public static Chat toEntity(ChatCreateDTO dto, Proyecto proyecto) {
+        Chat chat = new Chat();
+        chat.setProyecto(proyecto);
+        return chat;
+    }
+    public static ChatDTO toDTO(Chat chat) {
+        ChatDTO dto = new ChatDTO();
+        dto.setId(chat.getId());
+        dto.setProyectoId(chat.getProyecto().getId());
+        dto.setFechaCreacion(chat.getFechaCreacion());
+        return dto;
+    }
+
+    // ================= MENSAJE =================
+    public static Mensaje toEntity(
+            MensajeCreateDTO dto,
+            Chat chat,
+            Usuario remitente) {
+
+        Mensaje mensaje = new Mensaje();
+        mensaje.setChat(chat);
+        mensaje.setRemitente(remitente);
+        mensaje.setContenido(dto.getContenido());
+        return mensaje;
+    }
+    public static MensajeDTO toDTO(Mensaje mensaje) {
+        MensajeDTO dto = new MensajeDTO();
+        dto.setId(mensaje.getId());
+        dto.setChatId(mensaje.getChat().getId());
+        dto.setRemitenteId(mensaje.getRemitente().getId());
+        dto.setContenido(mensaje.getContenido());
+        dto.setFechaEnvio(mensaje.getFechaEnvio());
+        return dto;
+    }
+
+
+    /* ================= BIBLIOTECA ================= */
+
+    public static BibliotecaDocumento toEntity(
+            BibliotecaDocumentoCreateDTO dto,
+            Usuario usuario
+    ) {
+        return BibliotecaDocumento.builder()
+                .nombre(dto.getNombre())
+                .tipo(dto.getTipo())
+                .rutaArchivo(dto.getRutaArchivo())
+                .descripcion(dto.getDescripcion())
+                .fechaSubida(LocalDateTime.now())
+                .subidoPor(usuario)
+                .activo(true)
+                .build();
+    }
+
+    public static BibliotecaDocumentoDTO toDTO(BibliotecaDocumento doc) {
+        BibliotecaDocumentoDTO dto = new BibliotecaDocumentoDTO();
+        dto.setId(doc.getId());
+        dto.setNombre(doc.getNombre());
+        dto.setTipo(doc.getTipo());
+        dto.setRutaArchivo(doc.getRutaArchivo());
+        dto.setDescripcion(doc.getDescripcion());
+        dto.setFechaSubida(doc.getFechaSubida());
+        dto.setSubidoPorId(doc.getSubidoPor().getId());
+        dto.setSubidoPorNombre(
+                doc.getSubidoPor().getNombre() + " " + doc.getSubidoPor().getApellido()
+        );
+        return dto;
+    }
+    public static ErrorProyecto toEntity(
+            ErrorProyectoCreateDTO dto,
+            Actividad actividad,
+            Usuario usuario
+    ) {
+        return ErrorProyecto.builder()
+                .titulo(dto.getTitulo())
+                .descripcion(dto.getDescripcion())
+                .fecha(LocalDateTime.now())
+                .estado(EstadoError.valueOf(dto.getEstado()))
+                .actividad(actividad)
+                .reportadoPor(usuario)
+                .activo(true)
+                .build();
+    }
+
+    public static ErrorProyectoDTO toDTO(ErrorProyecto error) {
+
+        ErrorProyectoDTO dto = new ErrorProyectoDTO();
+        dto.setId(error.getId());
+        dto.setTitulo(error.getTitulo());
+        dto.setDescripcion(error.getDescripcion());
+        dto.setFecha(error.getFecha());
+        dto.setEstado(error.getEstado().name());
+
+        dto.setActividadId(error.getActividad().getId());
+        dto.setActividadNombre(error.getActividad().getNombre());
+
+        dto.setReportadoPorId(error.getReportadoPor().getId());
+        dto.setReportadoPorNombre(
+                error.getReportadoPor().getNombre() + " " +
+                        error.getReportadoPor().getApellido()
+        );
+
+        return dto;
+    }
+
+
+
 }
+
+
+
+

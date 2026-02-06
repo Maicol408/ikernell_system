@@ -11,8 +11,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ErrorPoryecto {
-
+public class ErrorProyecto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,18 +23,16 @@ public class ErrorPoryecto {
     private String descripcion;
 
     @Column(nullable = false)
-    private LocalDateTime fecha;
+    private LocalDateTime fecha = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private EstadoError estado;
 
-    // 🔗 Relación con Actividad
     @ManyToOne
     @JoinColumn(name = "actividad_id", nullable = false)
     private Actividad actividad;
 
-    // 👤 Usuario que reporta el error
     @ManyToOne
     @JoinColumn(name = "reportado_por", nullable = false)
     private Usuario reportadoPor;

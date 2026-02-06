@@ -39,7 +39,7 @@ public class Actividad {
     private LocalDate fechaCreacion;
 
     @OneToMany(mappedBy = "actividad", cascade = CascadeType.ALL)
-    private List<ErrorPoryecto> errores;
+    private List<ErrorProyecto> errores;
 
     @ManyToOne
     @JoinColumn(name = "etapa_id", nullable = false)

@@ -71,7 +71,7 @@ public class Usuario {
 
     // Errores reportados (si decides usar la entidad Error)
     @OneToMany(mappedBy = "reportadoPor")
-    private List<ErrorPoryecto> erroresReportados;
+    private List<ErrorProyecto> erroresReportados;
 
     @Column(nullable = false)
     private Boolean activo = true;
