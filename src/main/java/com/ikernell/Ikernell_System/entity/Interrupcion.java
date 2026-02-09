@@ -18,31 +18,24 @@ public class Interrupcion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 300)
     private String motivo;
 
-    @Column(length = 500)
-    private String descripcion;
-
-    @Column(name = "fecha_inicio", nullable = false)
+    @Column(nullable = false)
     private LocalDateTime fechaInicio;
 
-    @Column(name = "fecha_fin")
     private LocalDateTime fechaFin;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private EstadoInterrupcion estado;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-
-
+    // Actividad afectada
     @ManyToOne
     @JoinColumn(name = "actividad_id", nullable = false)
     private Actividad actividad;
 
+    // Usuario que registra
     @ManyToOne
     @JoinColumn(name = "registrado_por", nullable = false)
     private Usuario registradoPor;

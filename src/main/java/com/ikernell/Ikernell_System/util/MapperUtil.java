@@ -4,6 +4,7 @@ import com.ikernell.Ikernell_System.dto.*;
 import com.ikernell.Ikernell_System.dto.create.*;
 import com.ikernell.Ikernell_System.entity.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class MapperUtil {
@@ -199,8 +200,72 @@ public class MapperUtil {
 
         return dto;
     }
+    public static Interrupcion toEntity(
+            InterrupcionCreateDTO dto,
+            Actividad actividad,
+            Usuario usuario
+    ) {
+        return Interrupcion.builder()
+                .motivo(dto.getMotivo())
+                .fechaInicio(LocalDateTime.now())
+                .estado(EstadoInterrupcion.valueOf(dto.getEstado()))
+                .actividad(actividad)
+                .registradoPor(usuario)
+                .activo(true)
+                .build();
+    }
 
+    public static InterrupcionDTO toDTO(Interrupcion inter) {
 
+        InterrupcionDTO dto = new InterrupcionDTO();
+        dto.setId(inter.getId());
+        dto.setMotivo(inter.getMotivo());
+        dto.setFechaInicio(inter.getFechaInicio());
+        dto.setFechaFin(inter.getFechaFin());
+        dto.setEstado(inter.getEstado().name());
+
+        dto.setActividadId(inter.getActividad().getId());
+        dto.setActividadNombre(inter.getActividad().getNombre());
+
+        dto.setRegistradoPorId(inter.getRegistradoPor().getId());
+        dto.setRegistradoPorNombre(
+                inter.getRegistradoPor().getNombre() + " " +
+                        inter.getRegistradoPor().getApellido()
+        );
+
+        return dto;
+    }
+    // ================= FAQ =================
+
+    public static Faq toEntity(
+            FaqCreateDTO dto,
+            Usuario usuario
+    ) {
+        return Faq.builder()
+                .pregunta(dto.getPregunta())
+                .respuesta(dto.getRespuesta())
+                .fechaCreacion(LocalDate.now())
+                .creadoPor(usuario)
+                .activo(true)
+                .build();
+    }
+
+    public static FaqDTO toDTO(Faq faq) {
+
+        FaqDTO dto = new FaqDTO();
+        dto.setId(faq.getId());
+        dto.setPregunta(faq.getPregunta());
+        dto.setRespuesta(faq.getRespuesta());
+        dto.setFechaCreacion(faq.getFechaCreacion());
+
+        dto.setCreadoPorId(faq.getCreadoPor().getId());
+        dto.setCreadoPorNombre(
+                faq.getCreadoPor().getNombre() + " " +
+                        faq.getCreadoPor().getApellido()
+        );
+
+        return dto;
+    }
 
 }
 

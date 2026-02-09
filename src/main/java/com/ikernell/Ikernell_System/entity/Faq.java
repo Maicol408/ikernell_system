@@ -18,14 +18,14 @@ public class Faq {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 200)
     private String pregunta;
 
     @Column(length = 600, nullable = false)
     private String respuesta;
 
     @Column(name = "fecha_creacion", nullable = false)
-    private LocalDate fechaCreacion;
+    private LocalDate fechaCreacion = LocalDate.now();
 
     @ManyToOne
     @JoinColumn(name = "creado_por", nullable = false)
@@ -34,3 +34,4 @@ public class Faq {
     @Column(nullable = false)
     private Boolean activo = true;
 }
+
